@@ -89,6 +89,10 @@
                                         title="{{p.program.command}}">
                                         <span class="glyphicon glyphicon-info-sign"></span> 信息
                                     </button>
+                                    <!-- TODO 添加配置信息-->
+                                    <button class="btn btn-default btn-xs" data-toggle="" tittle="">
+                                        <span class="glyphicon glyphicon-cog"></span> 配置
+                                    </button>
                                 </td>
                                 <td>
                                     <button v-on:click="cmdStart(p.program.name)" class="btn btn-default btn-xs"
@@ -146,6 +150,10 @@
                                     <button class="btn btn-default btn-xs" data-toggle="tooltip"
                                         title="{{p.program.command}}">
                                         <span class="glyphicon glyphicon-info-sign"></span> 信息
+                                    </button>
+                                    <!-- TODO 添加配置信息-->
+                                    <button class="btn btn-default btn-xs" data-toggle="" tittle="">
+                                        <span class="glyphicon glyphicon-cog"></span> 配置
                                     </button>
                                 </td>
                                 <td>
@@ -223,7 +231,7 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="autostart" type="checkbox"> Auto start
+                                    <input name="autostart" type="checkbox"> 自动重启
                                 </label>
                             </div>
                             <!-- <button type="submit" class="btn btn-Wdefault">Submit</button> -->
