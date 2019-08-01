@@ -34,7 +34,7 @@ func init() {
 	if defaultGosuvDir == "" {
 		defaultGosuvDir = filepath.Join(UserHomeDir(), ".gosuv")
 	}
-	http.Handle("/res/", http.StripPrefix("/res/", http.FileServer(Assets))) // http.StripPrefix("/res/", Assets))
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(Assets))) // http.StripPrefix("/res/", Assets))
 }
 
 type Supervisor struct {
