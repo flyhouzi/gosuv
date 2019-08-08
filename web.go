@@ -30,9 +30,12 @@ import (
 var defaultGosuvDir string
 
 func init() {
-	defaultGosuvDir = os.Getenv("GOSUV_HOME_DIR")
+	// defaultGosuvDir = os.Getenv("GOSUV_HOME_DIR")
+	// if defaultGosuvDir == "" {
+	// 	defaultGosuvDir = filepath.Join(UserHomeDir(), ".gosuv")
+	// }
 	if defaultGosuvDir == "" {
-		defaultGosuvDir = filepath.Join(UserHomeDir(), ".gosuv")
+		defaultGosuvDir = filepath.Join("./", ".gosuv")
 	}
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(Assets))) // http.StripPrefix("/res/", Assets))
 }

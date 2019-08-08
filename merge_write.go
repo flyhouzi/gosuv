@@ -71,11 +71,10 @@ func (m *MergeWriter) Close() {
 func (m *MergeWriter) WriteStrLine(line string) {
 	if m.closed.Get() {
 		return
-	} else {
-		buffer := bufferPool.Get()
-		buffer.WriteString(line)
-		m.lines <- buffer
 	}
+	buffer := bufferPool.Get()
+	buffer.WriteString(line)
+	m.lines <- buffer
 }
 
 func (m *MergeWriter) WriteLine(line *bytes.Buffer) {
@@ -84,9 +83,9 @@ func (m *MergeWriter) WriteLine(line *bytes.Buffer) {
 		// log.Printf("Write to closed MergeWrite...")
 		bufferPool.Put(line)
 		return
-	} else {
-		m.lines <- line
 	}
+	m.lines <- line
+
 }
 
 func (m *MergeWriter) drainLines() {

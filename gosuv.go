@@ -19,10 +19,11 @@ import (
 const appID = "app_8Gji4eEAdDx"
 
 var (
-	version string = "master"
+	version = "master"
 	cfg     Configuration
 )
 
+//TagInfo 标记信息
 type TagInfo struct {
 	Version   string `json:"tag_name"`
 	Body      string `json:"body"`
@@ -128,8 +129,8 @@ func main() {
 	}
 	app.Authors = []cli.Author{
 		cli.Author{
-			Name:  "codeskyblue",
-			Email: "codeskyblue@gmail.com",
+			Name:  "",
+			Email: "",
 		},
 	}
 	app.Flags = []cli.Flag{
@@ -141,7 +142,7 @@ func main() {
 	}
 	app.Commands = []cli.Command{
 		{
-			Name:  "start-server",
+			Name:  "run",
 			Usage: "Start supervisor and run in background",
 			Flags: []cli.Flag{
 				cli.BoolFlag{

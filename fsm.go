@@ -31,7 +31,7 @@ import (
 
 	"github.com/axgle/pinyin"
 	"github.com/kennygrant/sanitize"
-	"github.com/lunny/dingtalk_webhook"
+	dingtalk "github.com/lunny/dingtalk_webhook"
 	"github.com/natefinch/lumberjack"
 	"github.com/qiniu/log"
 	"github.com/soopsio/gosuv/pushover"
@@ -50,6 +50,7 @@ type FSM struct {
 	StateChange func(oldState, newState FSMState)
 }
 
+//AddHandler 添加处理函数
 func (f *FSM) AddHandler(state FSMState, event FSMEvent, hdlr FSMHandler) *FSM {
 	_, ok := f.handlers[state]
 	if !ok {
@@ -108,6 +109,7 @@ var (
 	RestartEvent = FSMEvent("restart")
 )
 
+//Program 程序
 type Program struct {
 	Name          string   `yaml:"name" json:"name"`
 	Command       string   `yaml:"command" json:"command"`
@@ -123,6 +125,7 @@ type Program struct {
 	WebHook       WebHook       `yaml:"webhook,omitempty" json:"-"`
 }
 
+//Notifications 通知结构体
 type Notifications struct {
 	Pushover struct {
 		ApiKey string   `yaml:"api_key"`
@@ -137,6 +140,7 @@ type Notifications struct {
 	} `yaml:"dingtalk,omitempty"`
 }
 
+//WebHook web钩子
 type WebHook struct {
 	Github struct {
 		Secret string `yaml:"secret"`
@@ -145,6 +149,7 @@ type WebHook struct {
 	Timeout int    `yaml:"timeout"`
 }
 
+//Check 检查参数
 func (p *Program) Check() error {
 	if p.Name == "" {
 		return errors.New("Program name empty")
@@ -159,6 +164,7 @@ func (p *Program) Check() error {
 	return nil
 }
 
+//RunNotification 运行通知
 func (p *Program) RunNotification(state FSMState) {
 	notis := []Notifications{}
 	notis = append(notis, cfg.Notifications)
@@ -202,11 +208,13 @@ func (p *Program) RunNotification(state FSMState) {
 	}
 }
 
+//IsRoot 是否是root用户
 func IsRoot() bool {
 	u, err := user.Current()
 	return err == nil && u.Username == "root"
 }
 
+//Process 进程结构
 type Process struct {
 	*FSM       `json:"-"`
 	Program    `json:"program"`
@@ -299,7 +307,7 @@ func (p *Process) waitNextRetry() {
 		p.cmd = nil
 		return
 	}
-	p.retryLeft -= 1
+	p.retryLeft--
 	select {
 	case <-time.After(2 * time.Second): // TODO: need put it into Program
 		p.startCommand()
@@ -354,6 +362,7 @@ func (p *Process) stopCommand() {
 	p.cmd = nil
 }
 
+//IsRunning 进程是否在运行
 func (p *Process) IsRunning() bool {
 	return p.State() == Running || p.State() == RetryWait
 }
@@ -401,6 +410,7 @@ func (p *Process) startCommand() {
 	}()
 }
 
+//NewProcess 新的进程
 func NewProcess(pg Program) *Process {
 	outputBufferSize := 24 * 1024 // 24K
 	pr := &Process{

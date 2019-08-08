@@ -77,7 +77,7 @@ func actionStartServer(c *cli.Context) error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if err := ioutil.WriteFile("/var/run/gosuv.pid", []byte(strconv.Itoa(cmd.Process.Pid)), 0644); err != nil {
+		if err := ioutil.WriteFile(".gosuv/gosuv.pid", []byte(strconv.Itoa(cmd.Process.Pid)), 0644); err != nil {
 			log.Fatalln(err)
 		}
 		select {
@@ -120,7 +120,7 @@ func actionStatus(c *cli.Context) error {
 	return nil
 }
 
-// cmd: <start|stop>
+//programOperate cmd: <start|stop>
 func programOperate(cmd, name string) (err error, success bool) {
 	// res, err := goreq.Request{
 	// 	Method: "POST",

@@ -6,6 +6,7 @@ require (
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/axgle/pinyin v0.0.0-20180208003132-d1557e083be4
 	github.com/bluele/gcache v0.0.0-20190518031135-bc40bd653833
+	github.com/dgraph-io/badger v1.6.0
 	github.com/glycerine/rbuf v0.0.0-20190314090850-75b78581bebe
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/goji/httpauth v0.0.0-20160601135302-2da839ab0f4d

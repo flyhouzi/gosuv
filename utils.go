@@ -11,8 +11,10 @@ import (
 	"github.com/qiniu/log"
 )
 
+//ErrGoTimeout 协程超时
 var ErrGoTimeout = errors.New("GoTimeoutFunc")
 
+//GoFunc 协程
 func GoFunc(f func() error) chan error {
 	ch := make(chan error)
 	go func() {
@@ -21,6 +23,7 @@ func GoFunc(f func() error) chan error {
 	return ch
 }
 
+//GoTimeoutFunc go 携程超时
 func GoTimeoutFunc(timeout time.Duration, f func() error) chan error {
 	ch := make(chan error)
 	go func() {
@@ -36,6 +39,7 @@ func GoTimeoutFunc(timeout time.Duration, f func() error) chan error {
 	return ch
 }
 
+//GoTimeout go协程超时
 func GoTimeout(f func() error, timeout time.Duration) (err error) {
 	done := make(chan bool)
 	go func() {
@@ -50,11 +54,13 @@ func GoTimeout(f func() error, timeout time.Duration) (err error) {
 	}
 }
 
+//IsDir 判断是否是文件夹
 func IsDir(dir string) bool {
 	fi, err := os.Stat(dir)
 	return err == nil && fi.IsDir()
 }
 
+//UserHomeDir 获取玩家home目录
 func UserHomeDir() string {
 	if runtime.GOOS == "windows" {
 		home := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
@@ -107,6 +113,7 @@ func containsString(slice []string, element string) bool {
 	return !(posString(slice, element) == -1)
 }
 
+// StringFormat 格式化字符串
 func StringFormat(format string, m map[string]interface{}) string {
 	for k, v := range m {
 		format = strings.Replace(format, "{"+k+"}", fmt.Sprintf("%v", v), -1)
