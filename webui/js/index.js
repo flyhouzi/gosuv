@@ -1,5 +1,12 @@
 /* index.js */
 var W = {};
+var fp = "";
+var options = {}
+Fingerprint2.get(options, function (components) {
+    var values = components.map(function (component) { return component.value })
+    var murmur = Fingerprint2.x64hash128(values.join(''), 31)
+    fp = murmur
+})
 var vm = new Vue({
     el: "#app",
     data: {
@@ -58,7 +65,7 @@ var vm = new Vue({
 
         showEditProgram: function (p, slave) {
             this.edit.program = Object.assign({}, p); // here require polyfill.min.js
-            $("#programEdit").data("slave",slave).modal('show');
+            $("#programEdit").data("slave", slave).modal('show');
         },
 
         editProgram: function () {
