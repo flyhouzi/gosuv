@@ -70,7 +70,7 @@ func actionStartServer(c *cli.Context) error {
 		if err != nil {
 			log.Fatalf("create file %s failed: %v", logPath, err)
 		}
-		cmd := exec.Command(os.Args[0], "start-server", "-f")
+		cmd := exec.Command(os.Args[0], "run", "-f")
 		cmd.Stdout = logFd
 		cmd.Stderr = logFd
 		err = cmd.Start()

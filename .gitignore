@@ -34,3 +34,4 @@ vendor/*
 *.un~
 
 *.gosuv
+gosuv_upx
